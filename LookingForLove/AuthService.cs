@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Xml;
 using Newtonsoft.Json;
 
 namespace LookingForLove
@@ -30,6 +29,24 @@ namespace LookingForLove
             return users.Exists(u => u.Username == username && u.Password == password);
         }
 
+        public User GetUser(string username)
+        {
+            List<User> users = LoadUsers();
+            return users.Find(u => u.Username == username);
+        }
+
+        public void UpdateProfile(User user)
+        {
+            List<User> users = LoadUsers();
+            int index = users.FindIndex(u => u.Username == user.Username);
+            if (index != -1)
+            {
+                users[index] = user;
+                SaveUsers(users);
+                Console.WriteLine("Profile updated successfully!");
+            }
+        }
+
         private List<User> LoadUsers()
         {
             if (!File.Exists(FilePath))
@@ -41,7 +58,7 @@ namespace LookingForLove
 
         private void SaveUsers(List<User> users)
         {
-            string json = JsonConvert.SerializeObject(users, Newtonsoft.Json.Formatting.Indented);
+            string json = JsonConvert.SerializeObject(users, Formatting.Indented);
             File.WriteAllText(FilePath, json);
         }
     }
