@@ -84,9 +84,9 @@ namespace LookingForLove
             }
 
             Console.Write("Enter new bio: ");
-            user.Bio = Console.ReadLine();
+            //user.Bio = Console.ReadLine();
             Console.Write("Enter your interests (comma-separated): ");
-            user.Interests = Console.ReadLine();
+          //  user.Interests = Console.ReadLine();
 
             authService.UpdateProfile(user);
         }

@@ -8,10 +8,20 @@ namespace LookingForLove
 {
     public class User
     {
-        public string? Username { get; set; }
-        public string? Password { get; set; }
-        public string Bio { get; set; } = "No bio yet.";
-        public string Interests { get; set; } = "No interests added.";
+        //public string Bio { get; set; } = "No bio yet.";
+        //public string Interests { get; set; } = "No interests added.";
+        public int Id { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public string Salutation { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public string WhatsApp { get; set; }
+        public bool IsPaidMember { get; set; } = false;
+        public DateTime RegistrationDate { get; set; } = DateTime.Now;
+        public List<string> PossessedSkills { get; set; } = new List<string>();
+        public List<string> DesiredSkills { get; set; } = new List<string>();
     }
 }
 
