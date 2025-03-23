@@ -8,8 +8,8 @@ namespace LookingForLove
 {
     public class User
     {
-        //public string Bio { get; set; } = "No bio yet.";
-        //public string Interests { get; set; } = "No interests added.";
+        public string Bio { get; set; }
+        public string Interests { get; set; }
         public int Id { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
