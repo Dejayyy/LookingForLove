@@ -172,8 +172,8 @@ namespace LookingForLove
                 {
 
                     case "1":
-                        Console.WriteLine("\tLooking For Love");
-                        Console.WriteLine("\t----------------");
+                        Console.WriteLine("Looking For Love");
+                        Console.WriteLine("----------------");
                         Console.Write("Enter new Email (leave blank to cancel): ");
                         newEmail = Console.ReadLine();
                         authService.ChangeContactDetails(username, newEmail, null);
