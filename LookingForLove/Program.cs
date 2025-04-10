@@ -10,7 +10,10 @@ namespace LookingForLove
 
             while (true)
             {
-                Console.WriteLine("\n1. Register");
+                Console.WriteLine("Looking For Love");
+                Console.WriteLine("----------------");
+                Console.WriteLine("Would you like to:");
+                Console.WriteLine("1. Register");
                 Console.WriteLine("2. Login");
                 Console.WriteLine("3. Exit");
                 Console.Write("Select an option: ");
@@ -55,6 +58,8 @@ namespace LookingForLove
         {
             while (true)
             {
+                Console.WriteLine("Looking For Love");
+                Console.WriteLine("----------------");
                 Console.WriteLine("\nMain Menu:");
                 Console.WriteLine("1. Match");
                 Console.WriteLine("2. Profile Setup");
@@ -102,6 +107,8 @@ namespace LookingForLove
                 return;
             }
 
+            Console.WriteLine("Looking For Love");
+            Console.WriteLine("----------------");
             Console.WriteLine("USER INFORMATION:\n");
             Console.WriteLine("UserName: " + user.Username);
             Console.WriteLine("Full Name: " + user.FirstName + " " + user.LastName);
@@ -149,6 +156,9 @@ namespace LookingForLove
         {
             while (true)
             {
+
+                Console.WriteLine("Looking For Love");
+                Console.WriteLine("----------------");
                 Console.WriteLine("\n--- Contact Info Menu ---");
                 Console.WriteLine("1. Update Email");
                 Console.WriteLine("2. Update WhatsApp");
@@ -161,7 +171,10 @@ namespace LookingForLove
 
                 switch (input)
                 {
+
                     case "1":
+                        Console.WriteLine("Looking For Love");
+                        Console.WriteLine("----------------");
                         Console.Write("Enter new Email (leave blank to cancel): ");
                         newEmail = Console.ReadLine();
                         authService.ChangeContactDetails(username, newEmail, null);
@@ -225,7 +238,8 @@ namespace LookingForLove
                 Console.WriteLine("User not found.");
                 return;
             }
-
+            Console.WriteLine("Looking For Love");
+            Console.WriteLine("----------------");
             Console.WriteLine("Do you wish to update your whole profile or just your bio and interests?");
             Console.WriteLine("1. Whole Profile");
             Console.WriteLine("2. Just Bio and Interests");
@@ -240,6 +254,8 @@ namespace LookingForLove
             {
                 //whole profile update
                 case "1":
+                    Console.WriteLine("Looking For Love");
+                    Console.WriteLine("----------------");
                     Console.Write("Enter your First Name: ");
                     user.FirstName = Console.ReadLine();
                     Console.Write("Enter your Last Name: ");
@@ -254,6 +270,8 @@ namespace LookingForLove
 
 
                 case "2":
+                    Console.WriteLine("Looking For Love");
+                    Console.WriteLine("----------------");
                     Console.Write("Enter new bio: ");
                     user.Bio = Console.ReadLine();
                     Console.Write("Enter your interests (comma-separated): ");
