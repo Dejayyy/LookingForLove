@@ -68,7 +68,8 @@ namespace LookingForLove
                 switch (choice)
                 {
                     case "1":
-                        Console.WriteLine("Matching feature coming soon!");
+                        //Console.WriteLine("Matching feature coming soon!");
+                        FindAMatch(authService, username);
                         break;
                     case "2":
                         UpdateUserProfile(authService, username);
@@ -180,7 +181,40 @@ namespace LookingForLove
         }
 
 
+        static void FindAMatch(AuthService authService, string username)
+        {
+            User currentUser = authService.GetUser(username);
+            string[] userInterests = currentUser.Interests.Split(',');
 
+            List<User> users = authService.LoadUsers();
+
+            foreach (User user in users)
+            {
+                if (user.Username == username)
+                    continue;
+
+                string[] matchInterests = user.Interests.Split(',');
+
+                int matchCount = 0;
+                foreach (string interest in userInterests)
+                {
+                    foreach (string otherI in matchInterests)
+                    {
+                        if (interest.Trim().ToLower() == otherI.Trim().ToLower())
+                        {
+                            matchCount++;
+                        }
+                    }
+                }
+
+                if (matchCount >= 3)
+                {
+                    Console.WriteLine($"\nYou matched with {user.Username}!");
+                    Console.WriteLine($"Shared Interests: {matchCount}");
+                    Console.WriteLine($"Bio: {user.Bio}");
+                }
+            }
+        }
 
 
         static void UpdateUserProfile(AuthService authService, string username)

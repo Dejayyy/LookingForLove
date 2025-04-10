@@ -70,7 +70,7 @@ namespace LookingForLove
             }
         }
 
-        private List<User> LoadUsers()
+        public List<User> LoadUsers()
         {
             if (!File.Exists(FilePath))
                 return new List<User>();
