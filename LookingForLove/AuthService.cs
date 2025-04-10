@@ -23,6 +23,29 @@ namespace LookingForLove
             Console.WriteLine("User registered successfully!");
         }
 
+        public void ChangeContactDetails(string username, string newEmail, string newWhatsApp)
+        {
+            List<User> users = LoadUsers();
+            int index = users.FindIndex(u => u.Username == username);
+
+            if (index != -1)
+            {
+                if (!string.IsNullOrWhiteSpace(newEmail))
+                    users[index].Email = newEmail;
+
+                if (!string.IsNullOrWhiteSpace(newWhatsApp))
+                    users[index].WhatsApp = newWhatsApp;
+
+                SaveUsers(users);
+                Console.WriteLine("Contact details updated successfully!");
+            }
+            else
+            {
+                Console.WriteLine("User not found.");
+            }
+        }
+
+
         public bool Login(string username, string password)
         {
             List<User> users = LoadUsers();

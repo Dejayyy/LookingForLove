@@ -50,7 +50,8 @@ namespace LookingForLove
                 Console.WriteLine("2. Profile Setup");
                 Console.WriteLine("3. View My Profile");
                 Console.WriteLine("4. Chat");
-                Console.WriteLine("5. Logout");
+                Console.WriteLine("5. Change Contact Info");
+                Console.WriteLine("6. Logout");
                 Console.Write("Choose an option: ");
                 string? choice = Console.ReadLine();
 
@@ -69,6 +70,9 @@ namespace LookingForLove
                         Console.WriteLine("Chat feature coming soon!");
                         break;
                     case "5":
+                        ChangeContactInfo(authService, username);
+                        return;
+                    case "6":
                         Console.WriteLine("Logging out...");
                         return;
                     default:
@@ -124,6 +128,18 @@ namespace LookingForLove
             }
         }
 
+        static void ChangeContactInfo(AuthService authService, string username)
+        {
+            Console.Write("Enter new Email (leave blank to skip): ");
+            string? newEmail = Console.ReadLine();
+
+            Console.Write("Enter new WhatsApp number (leave blank to skip): ");
+            string? newWhatsApp = Console.ReadLine();
+
+            authService.ChangeContactDetails(username, newEmail, newWhatsApp);
+        }
+
+
 
 
         static void UpdateUserProfile(AuthService authService, string username)
@@ -154,12 +170,8 @@ namespace LookingForLove
                     Console.Write("Enter your interests (comma-separated): ");
                     user.Interests = Console.ReadLine();
 
-                    Console.Write("Enter your Email :");
-                    user.Email = Console.ReadLine();
-
-                    Console.Write("Enter your WhatsApp (leave blank if you dont have one):");
-                    user.WhatsApp = Console.ReadLine();
                     break;
+
 
                 case "2":
                     Console.Write("Enter new bio: ");
