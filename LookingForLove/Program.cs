@@ -8,38 +8,48 @@ namespace LookingForLove
         {
             AuthService authService = new AuthService();
 
-            Console.WriteLine("1. Register");
-            Console.WriteLine("2. Login");
-            Console.Write("Select an option: ");
-            string? option = Console.ReadLine();
-
-            Console.Write("Enter username: ");
-            string? username = Console.ReadLine();
-            Console.Write("Enter password: ");
-            string? password = Console.ReadLine();
-
-            if (option == "1")
+            while (true)
             {
-                authService.Register(username, password);
-                return;
-            }
-            else if (option == "2")
-            {
-                if (authService.Login(username, password))
+                Console.WriteLine("\n1. Register");
+                Console.WriteLine("2. Login");
+                Console.WriteLine("3. Exit");
+                Console.Write("Select an option: ");
+                string? option = Console.ReadLine();
+
+                if (option == "3")
                 {
-                    Console.WriteLine("Login successful!");
-                    ShowMainMenu(authService, username);
+                    Console.WriteLine("Goodbye!");
+                    return;
+                }
+
+                Console.Write("Enter username: ");
+                string? username = Console.ReadLine();
+                Console.Write("Enter password: ");
+                string? password = Console.ReadLine();
+
+                if (option == "1")
+                {
+                    authService.Register(username, password);
+                }
+                else if (option == "2")
+                {
+                    if (authService.Login(username, password))
+                    {
+                        Console.WriteLine("Login successful!");
+                        ShowMainMenu(authService, username);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid username or password.");
+                    }
                 }
                 else
                 {
-                    Console.WriteLine("Invalid username or password.");
+                    Console.WriteLine("Invalid option.");
                 }
             }
-            else
-            {
-                Console.WriteLine("Invalid option.");
-            }
         }
+
 
         static void ShowMainMenu(AuthService authService, string username)
         {
@@ -50,7 +60,7 @@ namespace LookingForLove
                 Console.WriteLine("2. Profile Setup");
                 Console.WriteLine("3. View My Profile");
                 Console.WriteLine("4. Chat");
-                Console.WriteLine("5. Change Contact Info");
+                Console.WriteLine("5. Set or Change Contact Info");
                 Console.WriteLine("6. Logout");
                 Console.Write("Choose an option: ");
                 string? choice = Console.ReadLine();
@@ -71,7 +81,7 @@ namespace LookingForLove
                         break;
                     case "5":
                         ChangeContactInfo(authService, username);
-                        return;
+                        break;
                     case "6":
                         Console.WriteLine("Logging out...");
                         return;
@@ -136,14 +146,39 @@ namespace LookingForLove
 
         static void ChangeContactInfo(AuthService authService, string username)
         {
-            Console.Write("Enter new Email (leave blank to skip): ");
-            string? newEmail = Console.ReadLine();
+            while (true)
+            {
+                Console.WriteLine("\n--- Contact Info Menu ---");
+                Console.WriteLine("1. Update Email");
+                Console.WriteLine("2. Update WhatsApp");
+                Console.WriteLine("3. Return to Main Menu");
+                Console.Write("Choose an option: ");
+                string? input = Console.ReadLine();
 
-            Console.Write("Enter new WhatsApp number (leave blank to skip): ");
-            string? newWhatsApp = Console.ReadLine();
+                string? newEmail = null;
+                string? newWhatsApp = null;
 
-            authService.ChangeContactDetails(username, newEmail, newWhatsApp);
+                switch (input)
+                {
+                    case "1":
+                        Console.Write("Enter new Email (leave blank to cancel): ");
+                        newEmail = Console.ReadLine();
+                        authService.ChangeContactDetails(username, newEmail, null);
+                        break;
+                    case "2":
+                        Console.Write("Enter new WhatsApp number (leave blank to cancel): ");
+                        newWhatsApp = Console.ReadLine();
+                        authService.ChangeContactDetails(username, null, newWhatsApp);
+                        break;
+                    case "3":
+                        return;
+                    default:
+                        Console.WriteLine("Invalid option.");
+                        break;
+                }
+            }
         }
+
 
 
 
@@ -160,9 +195,14 @@ namespace LookingForLove
             Console.WriteLine("Do you wish to update your whole profile or just your bio and interests?");
             Console.WriteLine("1. Whole Profile");
             Console.WriteLine("2. Just Bio and Interests");
+            Console.WriteLine("3. Return to Main Menu");
+            Console.Write("Choose an option: ");
             string? choice = Console.ReadLine();
 
-            switch(choice)
+            if (choice == "3") return;
+
+
+            switch (choice)
             {
                 //whole profile update
                 case "1":
