@@ -98,18 +98,24 @@ namespace LookingForLove
             Console.WriteLine("Interests: \n");
             PrintInterests(authService, username);
 
-            if (user.Email == null)
+            if (string.IsNullOrWhiteSpace(user.Email))
             {
                 Console.WriteLine("Email: None provided.");
             }
-            if (user.WhatsApp == null)
+            else
             {
-                Console.WriteLine("WhatsApp: None provided");
+                Console.WriteLine("Email: " + user.Email);
             }
-            else {
-                Console.WriteLine("Email:" + user.Email);
+
+            if (string.IsNullOrWhiteSpace(user.WhatsApp))
+            {
+                Console.WriteLine("WhatsApp: None provided.");
+            }
+            else
+            {
                 Console.WriteLine("WhatsApp: " + user.WhatsApp);
             }
+
             Console.WriteLine("Joined: " + user.RegistrationDate);
         }
 
