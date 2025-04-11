@@ -113,7 +113,7 @@ namespace LookingForLove
             Console.WriteLine("UserName: " + user.Username);
             Console.WriteLine("Full Name: " + user.FirstName + " " + user.LastName);
             Console.WriteLine("Bio: " + user.Bio);
-            Console.WriteLine("Interests: \n");
+            Console.WriteLine("Interests: ");
             PrintInterests(authService, username);
 
             if (string.IsNullOrWhiteSpace(user.Email))
@@ -133,7 +133,7 @@ namespace LookingForLove
             {
                 Console.WriteLine("WhatsApp: " + user.WhatsApp);
             }
-
+            Console.WriteLine("Preferred Communication Method: " + user.PreferredContactMethod);
             Console.WriteLine("Joined: " + user.RegistrationDate);
         }
 
@@ -156,42 +156,62 @@ namespace LookingForLove
         {
             while (true)
             {
-
                 Console.WriteLine("Looking For Love");
                 Console.WriteLine("----------------");
                 Console.WriteLine("\n--- Contact Info Menu ---");
                 Console.WriteLine("1. Update Email");
                 Console.WriteLine("2. Update WhatsApp");
-                Console.WriteLine("3. Return to Main Menu");
+                Console.WriteLine("3. Set Preferred Communication Method");
+                Console.WriteLine("4. Return to Main Menu");
                 Console.Write("Choose an option: ");
                 string? input = Console.ReadLine();
 
-                string? newEmail = null;
-                string? newWhatsApp = null;
-
                 switch (input)
                 {
-
                     case "1":
-                        Console.WriteLine("Looking For Love");
-                        Console.WriteLine("----------------");
                         Console.Write("Enter new Email (leave blank to cancel): ");
-                        newEmail = Console.ReadLine();
+                        string? newEmail = Console.ReadLine();
                         authService.ChangeContactDetails(username, newEmail, null);
                         break;
+
                     case "2":
                         Console.Write("Enter new WhatsApp number (leave blank to cancel): ");
-                        newWhatsApp = Console.ReadLine();
+                        string? newWhatsApp = Console.ReadLine();
                         authService.ChangeContactDetails(username, null, newWhatsApp);
                         break;
+
                     case "3":
+                        Console.WriteLine("Select preferred communication method:");
+                        Console.WriteLine("1. Email");
+                        Console.WriteLine("2. WhatsApp");
+                        Console.Write("Choose: ");
+                        string? prefChoice = Console.ReadLine();
+
+                        string? preferredMethod = null;
+                        if (prefChoice == "1") preferredMethod = "Email";
+                        else if (prefChoice == "2") preferredMethod = "WhatsApp";
+                        else
+                        {
+                            Console.WriteLine("Invalid option.");
+                            break;
+                        }
+
+                        User user = authService.GetUser(username);
+                        user.PreferredContactMethod = preferredMethod;
+                        authService.UpdateProfile(user);
+                        Console.WriteLine($"Preferred method set to {preferredMethod}");
+                        break;
+
+                    case "4":
                         return;
+
                     default:
                         Console.WriteLine("Invalid option.");
                         break;
                 }
             }
         }
+
 
 
         static void FindAMatch(AuthService authService, string username)
