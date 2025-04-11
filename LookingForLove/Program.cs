@@ -133,6 +133,9 @@ namespace LookingForLove
             }
             Console.WriteLine("Preferred Communication Method: " + user.PreferredContactMethod);
             Console.WriteLine("Joined: " + user.RegistrationDate);
+
+            Console.WriteLine("\nPress any key to return to the menu...");
+            Console.ReadKey();
         }
 
         static void PrintInterests(AuthService authService, string username)
@@ -247,7 +250,7 @@ namespace LookingForLove
                     bool preferred = false;
                     if (currentUser.PreferredContactMethod == "Email")
                     {
-                       preferred = true;
+                        preferred = true;
                     }
 
                     Console.Clear();
@@ -255,7 +258,12 @@ namespace LookingForLove
                     Console.WriteLine($"Shared Interests: {matchCount}");
                     Console.WriteLine($"Bio: {user.Bio}");
                     Console.WriteLine($"Contact: {(preferred ? user.Email : user.WhatsApp)}");
+
+                    Console.WriteLine("\nPress any key to return to the menu...");
+                    Console.ReadKey();
+                    return;
                 }
+
             }
         }
 
