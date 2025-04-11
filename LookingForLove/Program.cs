@@ -204,48 +204,48 @@ namespace LookingForLove
                 Console.WriteLine("User not found.");
                 return;
             }
-            Console.WriteLine("Looking For Love");
-            Console.WriteLine("----------------");
-            Console.WriteLine("Do you wish to update your whole profile or just your bio and interests?");
-            Console.WriteLine("1. Whole Profile");
-            Console.WriteLine("2. Just Bio and Interests");
-            Console.WriteLine("3. Return to Main Menu");
-            Console.Write("Choose an option: ");
-            string? choice = Console.ReadLine();
 
-            if (choice == "3") return;
-
-
-            switch (choice)
+            while (true)
             {
-                //whole profile update
-                case "1":
-                    Console.WriteLine("Looking For Love");
-                    Console.WriteLine("----------------");
-                    Console.Write("Enter your First Name: ");
-                    user.FirstName = Console.ReadLine();
-                    Console.Write("Enter your Last Name: ");
-                    user.LastName = Console.ReadLine();
+                Console.WriteLine("Looking For Love");
+                Console.WriteLine("----------------");
+                Console.WriteLine("---- Edit Profile ----");
+                Console.WriteLine("1. First Name");
+                Console.WriteLine("2. Last Name");
+                Console.WriteLine("3. Bio");
+                Console.WriteLine("4. Interests");
+                Console.WriteLine("5. Return to Main Menu");
+                Console.Write("Choose a field to edit: ");
+                string? choice = Console.ReadLine();
 
-                    Console.Write("Enter new bio: ");
-                    user.Bio = Console.ReadLine();
-                    Console.Write("Enter your interests (comma-separated): ");
-                    user.Interests = Console.ReadLine();
-
-                    break;
-
-
-                case "2":
-                    Console.WriteLine("Looking For Love");
-                    Console.WriteLine("----------------");
-                    Console.Write("Enter new bio: ");
-                    user.Bio = Console.ReadLine();
-                    Console.Write("Enter your interests (comma-separated): ");
-                    user.Interests = Console.ReadLine();
-
-                    break;
+                switch (choice)
+                {
+                    case "1":
+                        Console.Write("Enter your First Name: ");
+                        user.FirstName = Console.ReadLine();
+                        break;
+                    case "2":
+                        Console.Write("Enter your Last Name: ");
+                        user.LastName = Console.ReadLine();
+                        break;
+                    case "3":
+                        Console.Write("Enter your Bio: ");
+                        user.Bio = Console.ReadLine();
+                        break;
+                    case "4":
+                        Console.Write("Enter your interests (comma-separated): ");
+                        user.Interests = Console.ReadLine();
+                        break;
+                    case "5":
+                        authService.UpdateProfile(user);
+                        Console.WriteLine("Profile updated!");
+                        return;
+                    default:
+                        Console.WriteLine("Invalid option.");
+                        break;
+                }
+                authService.UpdateProfile(user);
             }
-            authService.UpdateProfile(user);
         }
     }
 }
