@@ -19,9 +19,13 @@ namespace LookingForLove
         public string Email { get; set; }
         public string WhatsApp { get; set; }
         public bool IsPaidMember { get; set; } = false;
+        public string Gender { get; set; }
+        public string Nickname { get; set; }
+        public DateTime DateOfBirth { get; set; }
+
         public DateTime RegistrationDate { get; set; } = DateTime.Now;
-        public List<string> PossessedSkills { get; set; } = new List<string>();
-        public List<string> DesiredSkills { get; set; } = new List<string>();
+        public string PossessedSkills { get; set; } = "";
+        public string DesiredSkills { get; set; } = "";
         public string PreferredContactMethod { get; set; } = "Email";
 
     }

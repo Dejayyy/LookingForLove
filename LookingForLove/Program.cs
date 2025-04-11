@@ -289,33 +289,113 @@ namespace LookingForLove
                 Console.WriteLine("Looking For Love");
                 Console.WriteLine("----------------");
                 Console.WriteLine("---- Edit Profile ----");
-                Console.WriteLine("1. First Name");
-                Console.WriteLine("2. Last Name");
-                Console.WriteLine("3. Bio");
-                Console.WriteLine("4. Interests");
-                Console.WriteLine("5. Return to Main Menu");
+                Console.WriteLine("1. Salutation");
+                Console.WriteLine("2. First Name");
+                Console.WriteLine("3. Last Name");
+                Console.WriteLine("4. Nickname");
+                Console.WriteLine("5. Date of Birth");
+                Console.WriteLine("6. Gender");
+                Console.WriteLine("7. Bio");
+                Console.WriteLine("8. Interests");
+                Console.WriteLine("9. Member Type (Free or Paid)");
+                Console.WriteLine("10. Possessed Skills");
+                Console.WriteLine("11. Desired Skills");
+                Console.WriteLine("12. Return to Main Menu");
                 Console.Write("Choose a field to edit: ");
                 string? choice = Console.ReadLine();
 
                 switch (choice)
                 {
                     case "1":
+                        Console.WriteLine("Choose your salutation:");
+                        Console.WriteLine("1. Mr.");
+                        Console.WriteLine("2. Ms.");
+                        Console.WriteLine("3. Mrs.");
+                        Console.WriteLine("4. Dr.");
+                        Console.WriteLine("5. Mx.");
+                        Console.Write("Enter number: ");
+                        string? salOpt = Console.ReadLine();
+
+                        switch (salOpt)
+                        {
+                            case "1":
+                                user.Salutation = "Mr.";
+                                break;
+                            case "2":
+                                user.Salutation = "Ms.";
+                                break;
+                            case "3":
+                                user.Salutation = "Mrs.";
+                                break;
+                            case "4":
+                                user.Salutation = "Dr.";
+                                break;
+                            case "5":
+                                user.Salutation = "Mx.";
+                                break;
+                            default:
+                                user.Salutation = "Other";
+                                break;
+                        }
+
+                        break;
+                    case "2":
                         Console.Write("Enter your First Name: ");
                         user.FirstName = Console.ReadLine();
                         break;
-                    case "2":
+                    case "3":
                         Console.Write("Enter your Last Name: ");
                         user.LastName = Console.ReadLine();
                         break;
-                    case "3":
+                    case "4":
+                        Console.Write("Enter your Nickname: ");
+                        user.Username = Console.ReadLine();
+                        break;
+                    case "5":
+                        Console.Write("Enter your Date of Birth (yyyy-mm-dd): ");
+                        if (DateTime.TryParse(Console.ReadLine(), out DateTime dob))
+                            user.RegistrationDate = dob;
+                        else
+                            Console.WriteLine("Invalid date format.");
+                        break;
+                    case "6":
+                        Console.Write("Enter your Gender: ");
+                        user.Gender = Console.ReadLine();
+                        break;
+                    case "7":
                         Console.Write("Enter your Bio: ");
                         user.Bio = Console.ReadLine();
                         break;
-                    case "4":
-                        Console.Write("Enter your interests (comma-separated): ");
+                    case "8":
+                        Console.Write("Enter your Interests (comma-separated): ");
                         user.Interests = Console.ReadLine();
                         break;
-                    case "5":
+                    case "9":
+                        Console.Write("Are you a paid member? (yes/no): ");
+                        string? paid = Console.ReadLine()?.ToLower();
+                        if (paid == "yes")
+                        {
+                            user.IsPaidMember = true;
+                            Console.WriteLine("Congratulations! You are a paid user for 1 day.");
+                            Console.WriteLine("An invoice has been sent to your email. Pay it to remain a paid member for a month.");
+                            Console.WriteLine("\nPress any key to return to the menu...");
+                            Console.ReadKey();
+                        }
+                        else
+                        {
+                            user.IsPaidMember = false;
+                        }
+                        break;
+                    case "10":
+                        Console.Write("Enter your possessed skills (comma-separated): ");
+                        user.PossessedSkills = Console.ReadLine();
+                        break;
+
+                    case "11":
+                        Console.Write("Enter your desired skills in a match (comma-separated): ");
+                        user.DesiredSkills = Console.ReadLine();
+                        break;
+                    case "12":
                         authService.UpdateProfile(user);
                         Console.WriteLine("Profile updated!");
                         return;
@@ -323,8 +403,10 @@ namespace LookingForLove
                         Console.WriteLine("Invalid option.");
                         break;
                 }
+
                 authService.UpdateProfile(user);
             }
         }
+
     }
 }

@@ -33,24 +33,5 @@ namespace LookingForLove
             }
         }
 
-        public void AddSkillToPossessed(int userId, string skill)
-        {
-            var user = GetUser(userId);
-            if (user != null && !user.PossessedSkills.Contains(skill))
-            {
-                user.PossessedSkills.Add(skill);
-                UpdateProfile(user);
-            }
-        }
-
-        public void AddSkillToDesired(int userId, string skill)
-        {
-            var user = GetUser(userId);
-            if (user != null && !user.DesiredSkills.Contains(skill))
-            {
-                user.DesiredSkills.Add(skill);
-                UpdateProfile(user);
-            }
-        }
     }
 }
