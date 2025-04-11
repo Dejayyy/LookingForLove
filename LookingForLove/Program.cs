@@ -242,9 +242,17 @@ namespace LookingForLove
 
                 if (matchCount >= 3)
                 {
+                    bool preferred = false;
+                    if (user.PreferredContactMethod == "Email")
+                    {
+                       preferred = true;
+                    }
+
+
                     Console.WriteLine($"\nYou matched with {user.Username}!");
                     Console.WriteLine($"Shared Interests: {matchCount}");
                     Console.WriteLine($"Bio: {user.Bio}");
+                    Console.WriteLine($"Contact: {(preferred ? user.Email : user.WhatsApp)}");
                 }
             }
         }
