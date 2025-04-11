@@ -257,6 +257,11 @@ namespace LookingForLove
                     Console.WriteLine($"\nYou matched with {user.Username}!");
                     Console.WriteLine($"Shared Interests: {matchCount}");
                     Console.WriteLine($"Bio: {user.Bio}");
+                    Console.WriteLine("Interests: ");
+                    foreach (string interest in matchInterests)
+                    {
+                        Console.WriteLine(interest);
+                    }
                     Console.WriteLine($"Contact: {(preferred ? user.Email : user.WhatsApp)}");
 
                     Console.WriteLine("\nPress any key to return to the menu...");
