@@ -114,6 +114,10 @@ namespace LookingForLove
             Console.WriteLine("Bio: " + user.Bio);
             Console.WriteLine("Interests: ");
             PrintInterests(authService, username);
+            Console.WriteLine("Possessed Skills: ");
+            PrintPossessedSkills(authService, username);
+            Console.WriteLine("Desired Skills: ");
+            PrintDesiredSkills(authService, username);
 
             if (string.IsNullOrWhiteSpace(user.Email))
             {
@@ -151,6 +155,35 @@ namespace LookingForLove
             foreach (string interest in interests)
             {
                 Console.WriteLine(interest);
+            }
+        }
+        static void PrintPossessedSkills(AuthService authService, string username)
+        {
+            User user = authService.GetUser(username);
+            if (user == null)
+            {
+                Console.WriteLine("User not found.");
+                return;
+            }
+            string[] posSkills = user.PossessedSkills.Split(',');
+            foreach (string pSkill in posSkills)
+            {
+                Console.WriteLine(pSkill);
+            }
+        }
+
+        static void PrintDesiredSkills(AuthService authService, string username)
+        {
+            User user = authService.GetUser(username);
+            if (user == null)
+            {
+                Console.WriteLine("User not found.");
+                return;
+            }
+            string[] desSkills = user.DesiredSkills.Split(',');
+            foreach (string dSkill in desSkills)
+            {
+                Console.WriteLine(dSkill);
             }
         }
 
