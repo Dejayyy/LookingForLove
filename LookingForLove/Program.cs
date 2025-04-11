@@ -58,6 +58,7 @@ namespace LookingForLove
         {
             while (true)
             {
+                Console.Clear();
                 Console.WriteLine("Looking For Love");
                 Console.WriteLine("----------------");
                 Console.WriteLine("\nMain Menu:");
@@ -103,7 +104,7 @@ namespace LookingForLove
                 Console.WriteLine("User not found.");
                 return;
             }
-
+            Console.Clear();
             Console.WriteLine("Looking For Love");
             Console.WriteLine("----------------");
             Console.WriteLine("USER INFORMATION:\n");
@@ -153,6 +154,7 @@ namespace LookingForLove
         {
             while (true)
             {
+                Console.Clear();
                 Console.WriteLine("Looking For Love");
                 Console.WriteLine("----------------");
                 Console.WriteLine("\n--- Contact Info Menu ---");
@@ -166,18 +168,21 @@ namespace LookingForLove
                 switch (input)
                 {
                     case "1":
+                        Console.Clear();
                         Console.Write("Enter new Email (leave blank to cancel): ");
                         string? newEmail = Console.ReadLine();
                         authService.ChangeContactDetails(username, newEmail, null);
                         break;
 
                     case "2":
+                        Console.Clear();
                         Console.Write("Enter new WhatsApp number (leave blank to cancel): ");
                         string? newWhatsApp = Console.ReadLine();
                         authService.ChangeContactDetails(username, null, newWhatsApp);
                         break;
 
                     case "3":
+                        Console.Clear();
                         Console.WriteLine("Select preferred communication method:");
                         Console.WriteLine("1. Email");
                         Console.WriteLine("2. WhatsApp");
@@ -245,7 +250,7 @@ namespace LookingForLove
                        preferred = true;
                     }
 
-
+                    Console.Clear();
                     Console.WriteLine($"\nYou matched with {user.Username}!");
                     Console.WriteLine($"Shared Interests: {matchCount}");
                     Console.WriteLine($"Bio: {user.Bio}");
@@ -266,6 +271,7 @@ namespace LookingForLove
 
             while (true)
             {
+                Console.Clear();
                 Console.WriteLine("Looking For Love");
                 Console.WriteLine("----------------");
                 Console.WriteLine("---- Edit Profile ----");
