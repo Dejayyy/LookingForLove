@@ -64,9 +64,8 @@ namespace LookingForLove
                 Console.WriteLine("1. Match");
                 Console.WriteLine("2. Profile Setup");
                 Console.WriteLine("3. View My Profile");
-                Console.WriteLine("4. Chat");
-                Console.WriteLine("5. Set or Change Contact Info");
-                Console.WriteLine("6. Logout");
+                Console.WriteLine("4. Set or Change Contact Info");
+                Console.WriteLine("5. Logout");
                 Console.Write("Choose an option: ");
                 string? choice = Console.ReadLine();
 
@@ -82,13 +81,11 @@ namespace LookingForLove
                     case "3":
                             PrintUserInfo(authService, username);
                         break;
+
                     case "4":
-                        Console.WriteLine("Chat feature coming soon!");
-                        break;
-                    case "5":
                         ChangeContactInfo(authService, username);
                         break;
-                    case "6":
+                    case "5":
                         Console.WriteLine("Logging out...");
                         return;
                     default:
