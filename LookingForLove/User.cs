@@ -22,6 +22,8 @@ namespace LookingForLove
         public DateTime RegistrationDate { get; set; } = DateTime.Now;
         public List<string> PossessedSkills { get; set; } = new List<string>();
         public List<string> DesiredSkills { get; set; } = new List<string>();
+        public string PreferredContactMethod { get; set; } = "Email";
+
     }
 }
 
