@@ -240,7 +240,7 @@ namespace LookingForLove
                 if (matchCount >= 3)
                 {
                     bool preferred = false;
-                    if (user.PreferredContactMethod == "Email")
+                    if (currentUser.PreferredContactMethod == "Email")
                     {
                        preferred = true;
                     }
