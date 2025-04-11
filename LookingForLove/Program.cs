@@ -88,6 +88,7 @@ namespace LookingForLove
                         break;
                     case "5":
                         Console.WriteLine("Logging out...");
+                        Console.Clear();
                         return;
                     default:
                         Console.WriteLine("Invalid option.");
