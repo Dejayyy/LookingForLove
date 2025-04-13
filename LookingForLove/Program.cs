@@ -56,6 +56,7 @@ namespace LookingForLove
 
         static void ShowMainMenu(AuthService authService, string username)
         {
+            User user = authService.GetUser(username);
             while (true)
             {
                 Console.Clear();
@@ -66,6 +67,10 @@ namespace LookingForLove
                 Console.WriteLine("2. Profile Setup");
                 Console.WriteLine("3. View My Profile");
                 Console.WriteLine("4. Set or Change Contact Info");
+                if (user.isAdmin)
+                {
+                    Console.WriteLine("5. Admin Panel");
+                }
                 Console.WriteLine("5. Logout");
                 Console.Write("Choose an option: ");
                 string? choice = Console.ReadLine();
@@ -87,6 +92,9 @@ namespace LookingForLove
                         ChangeContactInfo(authService, username);
                         break;
                     case "5":
+                        ShowAdminPage(authService, username);
+                        break;
+                    case "6":
                         Console.WriteLine("Logging out...");
                         Console.Clear();
                         return;
@@ -185,6 +193,22 @@ namespace LookingForLove
             {
                 Console.WriteLine(dSkill);
             }
+        }
+
+        static void ShowAdminPage(AuthService authService, string username)
+        {
+            User user = authService.GetUser(username);
+            if (user == null)
+            {
+                Console.WriteLine("User not found.");
+                return;
+            }
+            Console.Clear();
+            Console.WriteLine("Admin Dashboard");
+            Console.WriteLine("There are a total of 5 free members and a total of 10 paid members");
+            Console.WriteLine("The total number of matches where the communcation information was exposed is 15");
+
+
         }
 
         static void ChangeContactInfo(AuthService authService, string username)

@@ -17,8 +17,18 @@ namespace LookingForLove
                 Console.WriteLine("User already exists!");
                 return;
             }
+            Console.WriteLine("Are you a system administrator? (Type yes or no)");
+            {
+                string isAdmin = Console.ReadLine();
+                if (isAdmin == "yes")
+                {
+                    users.Add(new User { Username = username, Password = password, isAdmin = true });
+                    SaveUsers(users);
+                    Console.WriteLine("User registered successfully as admin!");
+                    return;
+                }}
 
-            users.Add(new User { Username = username, Password = password });
+            users.Add(new User { Username = username, Password = password, isAdmin = false });
             SaveUsers(users);
             Console.WriteLine("User registered successfully!");
         }

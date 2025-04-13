@@ -27,7 +27,7 @@ namespace LookingForLove
         public string PossessedSkills { get; set; } = "";
         public string DesiredSkills { get; set; } = "";
         public string PreferredContactMethod { get; set; } = "Email";
-
+        public bool isAdmin { get; set; } = false;
     }
 }
 
