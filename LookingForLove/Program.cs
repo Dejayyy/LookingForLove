@@ -299,21 +299,24 @@ namespace LookingForLove
                     Console.WriteLine($"Contact: {(preferred ? user.Email : user.WhatsApp)}");
 
                     Console.WriteLine("Please Rate your Experience from 1-5");
-                    int rating = int.Parse(Console.ReadLine());
-
-                    if (rating >= 1 && rating <= 5)
+                   
+                    try
                     {
-
-                        Console.WriteLine("\nThank you! Press any key to return to the menu...");
-                        Console.ReadKey();
+                        int rating = int.Parse( Console.ReadLine() );
+                        if (rating >= 1 && rating <= 5)
+                        {
+                            Console.WriteLine("\nThank you! Press any key to return to the menu...");
+                        }
+                        else
+                        {
+                            Console.WriteLine("\nInvalid input, Press any key to return to the menu...");
+                        }
                     }
-
-                    else
+                    catch
                     {
-                        Console.WriteLine("\nInvalid Input, No rating made. Press any key to return to the menu...");
-                        Console.ReadKey();
+                        Console.WriteLine("\nInvalid Input, Press any key to return to the menu...");
                     }
-
+                    Console.ReadKey();
 
                     return;
                 }
