@@ -298,8 +298,23 @@ namespace LookingForLove
                     }
                     Console.WriteLine($"Contact: {(preferred ? user.Email : user.WhatsApp)}");
 
-                    Console.WriteLine("\nPress any key to return to the menu...");
-                    Console.ReadKey();
+                    Console.WriteLine("Please Rate your Experience from 1-5");
+                    int rating = int.Parse(Console.ReadLine());
+
+                    if (rating >= 1 && rating <= 5)
+                    {
+
+                        Console.WriteLine("\nThank you! Press any key to return to the menu...");
+                        Console.ReadKey();
+                    }
+
+                    else
+                    {
+                        Console.WriteLine("\nInvalid Input, No rating made. Press any key to return to the menu...");
+                        Console.ReadKey();
+                    }
+
+
                     return;
                 }
 
