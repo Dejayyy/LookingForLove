@@ -205,6 +205,7 @@ namespace LookingForLove
             Console.WriteLine("Admin Dashboard");
             Console.WriteLine("There are a total of 5 free members and a total of 10 paid members");
             Console.WriteLine("The total number of matches where the communcation information was exposed is 15");
+            Console.WriteLine("Press any key to continue.");
             Console.ReadKey();
 
         }
