@@ -71,7 +71,7 @@ namespace LookingForLove
                 {
                     Console.WriteLine("5. Admin Panel");
                 }
-                Console.WriteLine("5. Logout");
+                Console.WriteLine("6. Logout");
                 Console.Write("Choose an option: ");
                 string? choice = Console.ReadLine();
 
@@ -203,7 +203,6 @@ namespace LookingForLove
                 Console.WriteLine("User not found.");
                 return;
             }
-            Console.Clear();
             Console.WriteLine("Admin Dashboard");
             Console.WriteLine("There are a total of 5 free members and a total of 10 paid members");
             Console.WriteLine("The total number of matches where the communcation information was exposed is 15");
