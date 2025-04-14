@@ -78,7 +78,6 @@ namespace LookingForLove
                 switch (choice)
                 {
                     case "1":
-                        //Console.WriteLine("Matching feature coming soon!");
                         FindAMatch(authService, username);
                         break;
                     case "2":
@@ -103,7 +102,6 @@ namespace LookingForLove
                 }
             }
         }
-
         static void PrintUserInfo(AuthService authService, string username)
         {
             User user = authService.GetUser(username);
@@ -119,6 +117,7 @@ namespace LookingForLove
             Console.WriteLine("UserName: " + user.Username);
             Console.WriteLine("Full Name: " + user.FirstName + " " + user.LastName);
             Console.WriteLine("Bio: " + user.Bio);
+            Console.WriteLine("Birthday" + user.DateOfBirth);
             Console.WriteLine("Interests: ");
             PrintInterests(authService, username);
             Console.WriteLine("Possessed Skills: ");
@@ -149,7 +148,6 @@ namespace LookingForLove
             Console.WriteLine("\nPress any key to return to the menu...");
             Console.ReadKey();
         }
-
         static void PrintInterests(AuthService authService, string username)
         {
             User user = authService.GetUser(username);
@@ -178,7 +176,6 @@ namespace LookingForLove
                 Console.WriteLine(pSkill);
             }
         }
-
         static void PrintDesiredSkills(AuthService authService, string username)
         {
             User user = authService.GetUser(username);
@@ -193,7 +190,6 @@ namespace LookingForLove
                 Console.WriteLine(dSkill);
             }
         }
-
         static void ShowAdminPage(AuthService authService, string username)
         {
             User user = authService.GetUser(username);
@@ -202,14 +198,22 @@ namespace LookingForLove
                 Console.WriteLine("User not found.");
                 return;
             }
-            Console.WriteLine("Admin Dashboard");
-            Console.WriteLine("There are a total of 5 free members and a total of 10 paid members");
-            Console.WriteLine("The total number of matches where the communcation information was exposed is 15");
-            Console.WriteLine("Press any key to continue.");
+            List<User> users = authService.LoadUsers();
+
+            int paidMembers = users.Count(u => u.IsPaidMember);
+            int freeMembers = users.Count(u => !u.IsPaidMember);
+            int contactExposedMatches = authService.GetExposedMatchesCount();
+
+            Console.Clear();
+            Console.WriteLine("=== Admin Dashboard ===");
+            Console.WriteLine($"Free Members: {freeMembers}");
+            Console.WriteLine($"Paid Members: {paidMembers}");
+            Console.WriteLine($"Total Matches with Contact Info Shared: {contactExposedMatches}");
+            Console.WriteLine("=========================");
+            Console.WriteLine("Press any key to continue...");
             Console.ReadKey();
 
         }
-
         static void ChangeContactInfo(AuthService authService, string username)
         {
             while (true)
@@ -273,15 +277,13 @@ namespace LookingForLove
                 }
             }
         }
-
-
-
         static void FindAMatch(AuthService authService, string username)
         {
             User currentUser = authService.GetUser(username);
             string[] userInterests = currentUser.Interests.Split(',');
 
             List<User> users = authService.LoadUsers();
+            bool foundMatch = false;
 
             foreach (User user in users)
             {
@@ -289,8 +291,8 @@ namespace LookingForLove
                     continue;
 
                 string[] matchInterests = user.Interests.Split(',');
-
                 int matchCount = 0;
+
                 foreach (string interest in userInterests)
                 {
                     foreach (string otherI in matchInterests)
@@ -304,11 +306,7 @@ namespace LookingForLove
 
                 if (matchCount >= 3)
                 {
-                    bool preferred = false;
-                    if (currentUser.PreferredContactMethod == "Email")
-                    {
-                        preferred = true;
-                    }
+                    foundMatch = true;
 
                     Console.Clear();
                     Console.WriteLine($"\nYou matched with {user.Username}!");
@@ -317,37 +315,56 @@ namespace LookingForLove
                     Console.WriteLine("Interests: ");
                     foreach (string interest in matchInterests)
                     {
-                        Console.WriteLine(interest);
+                        Console.WriteLine($"- {interest.Trim()}");
                     }
-                    Console.WriteLine($"Contact: {(preferred ? user.Email : user.WhatsApp)}");
 
-                    Console.WriteLine("Please Rate your Experience from 1-5");
-                   
-                    try
+                    Console.WriteLine("\nDo you:");
+                    Console.WriteLine("1. Like");
+                    Console.WriteLine("2. Not");
+                    Console.Write("Choose an option: ");
+                    string? input = Console.ReadLine();
+
+                    if (input == "1")
                     {
-                        int rating = int.Parse( Console.ReadLine() );
-                        if (rating >= 1 && rating <= 5)
+                            authService.RecordExposedMatch();
+
+                        string contact = currentUser.PreferredContactMethod == "Email" ? user.Email : user.WhatsApp;
+                        Console.WriteLine($"\nGreat! Here is {user.Username}'s contact info via {currentUser.PreferredContactMethod}:");
+                        Console.WriteLine($"{contact}");
+
+                        Console.WriteLine("\nPlease rate your experience (1-5): ");
+                        if (int.TryParse(Console.ReadLine(), out int rating))
                         {
-                            Console.WriteLine("\nThank you! Press any key to return to the menu...");
+                            if (rating >= 1 && rating <= 5)
+                                Console.WriteLine("Thanks for your rating!");
+                            else
+                                Console.WriteLine("Invalid rating. Must be between 1 and 5.");
                         }
                         else
                         {
-                            Console.WriteLine("\nInvalid input, Press any key to return to the menu...");
+                            Console.WriteLine("Invalid input. Rating skipped.");
                         }
+
+                        Console.WriteLine("\nPress any key to return to the menu...");
+                        Console.ReadKey();
+                        return;
                     }
-                    catch
+                    else
                     {
-                        Console.WriteLine("\nInvalid Input, Press any key to return to the menu...");
+                        Console.WriteLine("\nOkay, moving to the next match...");
+                        Console.WriteLine("Press any key to continue...");
+                        Console.ReadKey();
                     }
-                    Console.ReadKey();
-
-                    return;
                 }
+            }
 
+            if (!foundMatch)
+            {
+                Console.WriteLine("No matches found at this time. Try updating your profile or interests.");
+                Console.WriteLine("\nPress any key to return to the menu...");
+                Console.ReadKey();
             }
         }
-
-
         static void UpdateUserProfile(AuthService authService, string username)
         {
             User user = authService.GetUser(username);
@@ -423,12 +440,12 @@ namespace LookingForLove
                         break;
                     case "4":
                         Console.Write("Enter your Nickname: ");
-                        user.Username = Console.ReadLine();
+                        user.Nickname = Console.ReadLine();
                         break;
                     case "5":
                         Console.Write("Enter your Date of Birth (yyyy-mm-dd): ");
                         if (DateTime.TryParse(Console.ReadLine(), out DateTime dob))
-                            user.RegistrationDate = dob;
+                            user.DateOfBirth = dob;
                         else
                             Console.WriteLine("Invalid date format.");
                         break;

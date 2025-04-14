@@ -80,6 +80,19 @@ namespace LookingForLove
             }
         }
 
+        private int exposedMatches = 0;
+
+        public void RecordExposedMatch()
+        {
+            exposedMatches++;
+        }
+
+        public int GetExposedMatchesCount()
+        {
+            return exposedMatches;
+        }
+
+
         public List<User> LoadUsers()
         {
             if (!File.Exists(FilePath))
