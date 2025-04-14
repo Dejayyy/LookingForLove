@@ -116,13 +116,11 @@ namespace LookingForLove
             Console.WriteLine("USER INFORMATION:\n");
             Console.WriteLine("UserName: " + user.Username);
             Console.WriteLine("Full Name: " + user.FirstName + " " + user.LastName);
+            Console.WriteLine("Nickname: " + user.Nickname);
             Console.WriteLine("Bio: " + user.Bio);
             Console.WriteLine("Birthday: " + user.DateOfBirth);
-            Console.WriteLine("Interests: ");
             PrintInterests(authService, username);
-            Console.WriteLine("Possessed Skills: ");
             PrintPossessedSkills(authService, username);
-            Console.WriteLine("Desired Skills: ");
             PrintDesiredSkills(authService, username);
 
             if (string.IsNullOrWhiteSpace(user.Email))
@@ -153,43 +151,40 @@ namespace LookingForLove
             User user = authService.GetUser(username);
             if (user == null)
             {
-                Console.WriteLine("User not found.");
+                Console.WriteLine("Interests: User not found.");
                 return;
             }
             string[] interests = user.Interests.Split(',');
-            foreach (string interest in interests)
-            {
-                Console.WriteLine(interest);
-            }
+            Console.Write("Interests: ");
+            Console.WriteLine(string.Join(", ", interests.Select(i => i.Trim())));
         }
+
         static void PrintPossessedSkills(AuthService authService, string username)
         {
             User user = authService.GetUser(username);
             if (user == null)
             {
-                Console.WriteLine("User not found.");
+                Console.WriteLine("Possessed Skills: User not found.");
                 return;
             }
             string[] posSkills = user.PossessedSkills.Split(',');
-            foreach (string pSkill in posSkills)
-            {
-                Console.WriteLine(pSkill);
-            }
+            Console.Write("Possessed Skills: ");
+            Console.WriteLine(string.Join(", ", posSkills.Select(s => s.Trim())));
         }
+
         static void PrintDesiredSkills(AuthService authService, string username)
         {
             User user = authService.GetUser(username);
             if (user == null)
             {
-                Console.WriteLine("User not found.");
+                Console.WriteLine("Desired Skills: User not found.");
                 return;
             }
             string[] desSkills = user.DesiredSkills.Split(',');
-            foreach (string dSkill in desSkills)
-            {
-                Console.WriteLine(dSkill);
-            }
+            Console.Write("Desired Skills: ");
+            Console.WriteLine(string.Join(", ", desSkills.Select(s => s.Trim())));
         }
+
         static void ShowAdminPage(AuthService authService, string username)
         {
             User user = authService.GetUser(username);
