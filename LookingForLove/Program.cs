@@ -117,7 +117,7 @@ namespace LookingForLove
             Console.WriteLine("UserName: " + user.Username);
             Console.WriteLine("Full Name: " + user.FirstName + " " + user.LastName);
             Console.WriteLine("Bio: " + user.Bio);
-            Console.WriteLine("Birthday" + user.DateOfBirth);
+            Console.WriteLine("Birthday: " + user.DateOfBirth);
             Console.WriteLine("Interests: ");
             PrintInterests(authService, username);
             Console.WriteLine("Possessed Skills: ");
